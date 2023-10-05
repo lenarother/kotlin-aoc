@@ -1,4 +1,4 @@
-fun part1(input: List<String>):Int {
+fun part1(input: List<String>): Int {
     var currentMax = 0
     var localMax = 0
     for (i in input) {
@@ -15,7 +15,7 @@ fun part1(input: List<String>):Int {
 }
 
 fun main() {
-        val input = readInput("Day01_test")
-        val part1Result = part1(input)
-        println(part1Result)
-    }
+    val input = readInput("Day01_test")
+    val part1Result = part1(input)
+    println(part1Result)
+}
