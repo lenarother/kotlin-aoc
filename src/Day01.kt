@@ -1,3 +1,4 @@
+// https://adventofcode.com/2022/day/1
 // TODO: How ro add txt file to repo?
 
 fun part1(input: List<String>): Int {
