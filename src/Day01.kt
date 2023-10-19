@@ -18,7 +18,19 @@ fun part1(input: List<String>): Int {
 }
 
 fun part2(input: List<String>): Int {
-    return 1
+    var results:MutableList<Int> = mutableListOf()
+    var localMax = 0
+    for (i in input) {
+        if (i.isEmpty()) {
+            results.add(localMax)
+            localMax = 0
+        } else {
+            localMax += i.toInt()
+        }
+    }
+    results.add(localMax)
+    println(results)
+    return results.sortedDescending().take(3).sum()
 }
 
 fun main() {
@@ -27,6 +39,6 @@ fun main() {
     check(part1(input) == 24000)
     println(part1(input))
 
-    // check(part1(input) == 45000)
-    // println(part2(input))
+    println(part2(input))
+    check(part2(input) == 45000)
 }
