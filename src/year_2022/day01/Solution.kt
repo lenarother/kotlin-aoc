@@ -1,5 +1,10 @@
-// https://adventofcode.com/2022/day/1
-// TODO: How ro add txt file to repo?
+package year_2022.day01
+
+import readInput
+
+/**
+ * https://adventofcode.com/2022/day/1
+ */
 
 fun part1(input: List<String>): Int {
     var currentMax = 0
@@ -29,16 +34,22 @@ fun part2(input: List<String>): Int {
         }
     }
     results.add(localMax)
-    println(results)
     return results.sortedDescending().take(3).sum()
 }
 
 fun main() {
-    val input = readInput("Day01_TestData")
+    val testInput = readInput("year_2022/day01/resources/TestData01")
+    val realInput = readInput("year_2022/day01/resources/RealData")
 
-    check(part1(input) == 24000)
-    println(part1(input))
+    // Part 1 - Test
+    check(part1(testInput) == 24000)
 
-    println(part2(input))
-    check(part2(input) == 45000)
+    // Part 1 - Solution
+    println(part1(realInput))
+
+    // Part 2 - Test
+    check(part2(testInput) == 45000)
+
+    // Part 2 - Solution
+    println(part2(realInput))
 }
