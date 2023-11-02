@@ -6,7 +6,13 @@ import readInput
  * https://adventofcode.com/2021/day/3
  */
 
-
+/**
+ * Input: Array of Strings that are equal in length and contain 0 / 1.
+ * Returns: Array of ints, where ich element is a sum of 1 on corresponding position.
+ *
+ * Example input: ["010", "010", "011"]
+ * Example output: [0, 3, 1]
+ */
 fun getOnesSum(input: List<String>): IntArray {
     // Sum how many "1"s appear on each position.
     val numberSize = input[0].length
@@ -20,26 +26,34 @@ fun getOnesSum(input: List<String>): IntArray {
     return countArray
 }
 
+fun getMostCommonBit(onesCount: Int, allItemsCount: Int): String {
+    val allItemsCountHalf = (allItemsCount / 2) + (allItemsCount % 2)
+    println(onesCount)
+    println(allItemsCountHalf)
+    return when {
+        onesCount < allItemsCountHalf -> "0"
+        else -> "1"
+    }
+}
+
+fun getLessCommonBit(onesCount: Int, allItemsCount: Int): String {
+    val allItemsCountHalf = (allItemsCount / 2) + (allItemsCount % 2)
+    return when {
+        onesCount < allItemsCountHalf -> "1"
+        else -> "0"
+    }
+}
 
 fun part1(input: List<String>): Int {
-    val itemsCountHalf = (input.size / 2) + (input.size % 2)
+    var countArray = getOnesSum(input)
     var resultNumber = ""
     var flippedResultNumber = ""
-
-    var countArray = getOnesSum(input)
-
 
     // Based on sum of "1"s and total number of items
     //   determine result number and its flipped version.
     for (i in countArray) {
-        if (i >= itemsCountHalf) {
-            resultNumber += "1"
-            flippedResultNumber += "0"
-        } else {
-            resultNumber += "0"
-            flippedResultNumber += "1"
-
-        }
+        resultNumber += getMostCommonBit(i, input.size)
+        flippedResultNumber += getLessCommonBit(i, input.size)
     }
     return resultNumber.toInt(2) * flippedResultNumber.toInt(2)
 }
