@@ -61,11 +61,9 @@ fun parseInputBoards(input: List<String>): MutableList<Board> {
     return boards
 }
 
-
 fun parseInputNumbers(input: List<String>): List<Int> {
     return input[0].split(",").map{ it.toInt() }
 }
-
 
 fun part1(input: List<String>): Int {
     val numbers = parseInputNumbers(input)
@@ -84,7 +82,23 @@ fun part1(input: List<String>): Int {
 }
 
 fun part2(input: List<String>): Int {
-    return 2
+    val numbers = parseInputNumbers(input)
+    var boards = parseInputBoards(input)
+    var completeBoards = mutableListOf<Board>()
+    for (n in numbers) {
+        var completeTemp = mutableListOf<Board>()
+        for (b in boards) {
+            if (b.isHit(n)) {
+                b.addHit(n)
+                if (b.isComplete()) {
+                    completeTemp.add(b)
+                }
+            }
+        }
+        completeBoards.addAll(completeTemp)
+        boards.removeAll(completeTemp)
+    }
+    return completeBoards.last().getScore()
 }
 
 fun main() {
@@ -98,8 +112,8 @@ fun main() {
     println(part1(realInput))
 
     // Part 2 - Test
-    //check(part2(testInput) == 2)
+    check(part2(testInput) == 1924)
 
     // Part 2 - Solution
-    // println(part2(realInput))
+    println(part2(realInput))
 }
