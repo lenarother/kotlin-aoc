@@ -7,6 +7,26 @@ import readInput
  */
 
 fun part1(input: List<String>): Int {
+    println("input: $input")
+    val shapeMap = mapOf(
+        "X" to "Rock",
+        "Y" to "Paper",
+        "Z" to "Scissors",
+        "A" to "Rock",
+        "B" to "Paper",
+        "C" to "Scissors"
+    )
+    val scoreMap = mapOf(
+        "Rock" to 1,
+        "Paper" to 2,
+        "Scissors" to 3,
+    )
+    println("scoreMap: $scoreMap")
+
+    input.forEach { row ->
+        val values = row.split(" ")
+        println("values: ${shapeMap[values[0]]}, ${shapeMap[values[1]]}")
+    }
     return 1
 }
 
