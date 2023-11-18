@@ -1,9 +1,9 @@
-package year_2021.day05
+package year_2021.day00
 
 import readInput
 
 /**
- * https://adventofcode.com/2021/day/5
+ * https://adventofcode.com/2021/day/X
  */
 
 fun part1(input: List<String>): Int {
@@ -15,8 +15,8 @@ fun part2(input: List<String>): Int {
 }
 
 fun main() {
-    val testInput = readInput("year_2021/day05/resources/TestData01")
-    val realInput = readInput("year_2021/day05/resources/RealData")
+    val testInput = readInput("year_2021/day0X/resources/TestData01")
+    val realInput = readInput("year_2021/day0X/resources/RealData")
 
     // Part 1 - Test
     check(part1(testInput) == 1)
