@@ -23,11 +23,35 @@ fun part1(input: List<String>): Int {
     )
     println("scoreMap: $scoreMap")
 
-    input.forEach { row ->
+    val scoresMap = mapOf(
+        "Rock" to mapOf(
+            "Rock" to 3,
+            "Paper" to 0,
+            "Scissors" to 6,
+        ),
+        "Scissors" to mapOf(
+            "Rock" to 0,
+            "Paper" to 6,
+            "Scissors" to 3,
+        ),
+        "Paper" to mapOf(
+            "Rock" to 6,
+            "Paper" to 3,
+            "Scissors" to 0,
+        ),
+    )
+    println("scoresMap $scoresMap")
+
+    val sum = input.sumOf { row ->
         val values = row.split(" ")
-        println("values: ${shapeMap[values[0]]}, ${shapeMap[values[1]]}")
+        val opponentShape: String? = shapeMap[values[0]] // a -> rock
+        val myShape: String? = shapeMap[values[1]] // y -paper
+        val winScore = scoresMap[myShape!!]!![opponentShape]!!
+        val roundScore = scoreMap[myShape]!! + winScore
+        println("roundScore $roundScore")
+        roundScore
     }
-    return 1
+    return sum
 }
 
 fun part2(input: List<String>): Int {
@@ -42,11 +66,11 @@ fun main() {
     check(part1(testInput) == 15)
 
     // Part 1 - Solution
-    // println(part1(realInput))
+     println(part1(realInput))
 
     // Part 2 - Test
     // check(part2(testInput) == 12)
 
     // Part 2 - Solution
-    // println(part2(realInput))
+//     println(part2(realInput))
 }
