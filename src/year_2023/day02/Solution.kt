@@ -10,7 +10,15 @@ const val RED = 12
 const val GREEN = 13
 const val BLUE = 14
 
-data class Game(val id: Int, val red: List<Int>, val blue: List<Int>, val green: List<Int>) {
+// Use DSL, builder pattern
+// https://kotlinlang.org/docs/type-safe-builders.html
+fun game(init: Game.() -> Unit): Game {
+    val game = Game(id = 0, red = listOf(), blue = listOf(), green = listOf())
+    game.init()
+    return game
+}
+
+data class Game(var id: Int, var red: List<Int>, var blue: List<Int>, var green: List<Int>) {
     val power: Int
         get() = red.max() * blue.max() * green.max()
 
@@ -29,12 +37,11 @@ data class Game(val id: Int, val red: List<Int>, val blue: List<Int>, val green:
 // extension function
 fun String.findNumbers(regexString: String): List<Int> = Regex(regexString).findAll(this).map { it.groupValues[1].toInt() }.toList()
 
-fun parseGame(inputLine: String): Game {
-    val red = inputLine.findNumbers("([0-9]+) red")
-    val blue = inputLine.findNumbers("([0-9]+) blue")
-    val green = inputLine.findNumbers("([0-9]+) green")
-    val id = inputLine.findNumbers("Game ([0-9]+):")[0]
-    return Game(id = id, red = red, blue = blue, green = green)
+fun parseGame(inputLine: String) = game {
+    this.red = inputLine.findNumbers("([0-9]+) red")
+    this.blue = inputLine.findNumbers("([0-9]+) blue")
+    this.green = inputLine.findNumbers("([0-9]+) green")
+    this.id = inputLine.findNumbers("Game ([0-9]+):")[0]
 }
 
 fun part1(input: List<String>): Int {
