@@ -6,34 +6,44 @@ import readInput
  * https://adventofcode.com/2023/day/2
  */
 
-class Game(val id: Int, val red: List<Int>, val blue: List<Int>, val green: List<Int>) {
+const val RED = 12
+const val GREEN = 13
+const val BLUE = 14
 
-    override fun toString(): String = "<Game ${id}>"
+data class Game(val id: Int, val red: List<Int>, val blue: List<Int>, val green: List<Int>) {
+    val power: Int
+        get() = red.max() * blue.max() * green.max()
 
-    fun isPossible(r: Int, b: Int, g: Int): Boolean = (
+    override fun toString(): String = "<Game $id>"
+
+    fun isPossible(
+        r: Int = RED,
+        b: Int = BLUE,
+        g: Int = GREEN,
+    ): Boolean =
+        (
             (red.max() <= r) and (blue.max() <= b) and (green.max() <= g)
-            )
-
-    fun getPower(): Int = red.max() * blue.max() * green.max()
+        )
 }
 
-fun findNumbers(regexString: String, inputLine: String): List<Int> {
-    return Regex(regexString).findAll(inputLine).map { it.groupValues[1].toInt() }.toList()
-}
+// extension function
+fun String.findNumbers(regexString: String): List<Int> = Regex(regexString).findAll(this).map { it.groupValues[1].toInt() }.toList()
 
 fun parseGame(inputLine: String): Game {
-    val red = findNumbers("([0-9]+) red", inputLine)
-    val blue = findNumbers("([0-9]+) blue", inputLine)
-    val green = findNumbers("([0-9]+) green", inputLine)
-    val id = findNumbers("Game ([0-9]+):", inputLine)[0]
-    return Game(id=id, red=red, blue=blue, green=green)
+    val red = inputLine.findNumbers("([0-9]+) red")
+    val blue = inputLine.findNumbers("([0-9]+) blue")
+    val green = inputLine.findNumbers("([0-9]+) green")
+    val id = inputLine.findNumbers("Game ([0-9]+):")[0]
+    return Game(id = id, red = red, blue = blue, green = green)
 }
 
 fun part1(input: List<String>): Int {
     var result = 0
     for (line in input) {
         val game = parseGame(line)
-        if ( game.isPossible(r=12, b=14, g=13)) { result += game.id }
+        if (game.isPossible()) {
+            result += game.id
+        }
     }
     return result
 }
@@ -42,7 +52,7 @@ fun part2(input: List<String>): Int {
     var result = 0
     for (line in input) {
         val game = parseGame(line)
-        result += game.getPower()
+        result += game.power
     }
     return result
 }
